@@ -3,40 +3,25 @@ namespace TaskManagerBackend.Models
     public class TaskItem
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public bool IsCompleted { get; set; }
-        public DateTime CreatedAt { get; } = DateTime.UtcNow;
-        public DateOnly DueDate { get; set; }
-        public string? Location { get; set; }
+        public string Title { get; set; } = "";
+        public bool IsCompleted { get; set; } = false;
+        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+        public DateOnly? DueDate { get; set; }
         public DateTime? DueTime { get; set; }
+        public string? Location { get; set; }
         public string? Notes { get; set; }
 
+        // Parameterless constructor for EF Core
+        public TaskItem() { }
 
-        public TaskItem(int id, string title, DateOnly DueDate, string location, DateTime DueTime, string notes)
+        // Convenience constructors
+        public TaskItem(string title, DateOnly? dueDate = null, DateTime? dueTime = null, string? location = null, string? notes = null)
         {
-            Id = id;
             Title = title;
-            this.DueDate = DueDate;
+            DueDate = dueDate;
+            DueTime = dueTime;
             Location = location;
-            this.DueTime = DueTime;
             Notes = notes;
-        }
-        public TaskItem(int id, string title, string description, DateOnly DueDate, DateTime DueTime, string notes)
-        {
-            Id = id;
-            Title = title;
-            this.DueDate = DueDate;
-            Location = description;
-            this.DueTime = DueTime;
-            Notes = notes;
-        }
-        public TaskItem(int id, string title, DateOnly DueDate, DateTime DueTime)
-        {
-            Id = id;
-            Title = title;
-            this.DueDate = DueDate;
-            this.DueTime = DueTime;
-
         }
     }
 }
